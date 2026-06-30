@@ -1,0 +1,23 @@
+{
+  "name": "omni",
+  "version": "0.1.0",
+  "description": "Omni is a design-first autonomous product-building system for research, interface design, frontend implementation, browser verification, and business analysis.",
+  "author": {
+    "name": "Jacob Coding"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Omni",
+    "shortDescription": "Design-first product building for Codex",
+    "longDescription": "Omni orchestrates research, art direction, UX, frontend implementation, browser QA, and business analysis with a strict evidence-first workflow.",
+    "developerName": "Jacob Coding",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": [
+      "Build a distinctive landing page for my product",
+      "Audit this frontend for AI slop and redesign weak sections",
+      "Calculate CAC and LTV from my business data"
+    ],
+    "brandColor": "#0F172A"
+  }
+}

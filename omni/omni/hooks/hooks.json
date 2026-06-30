@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "hooks": [
+    {
+      "name": "format-on-write",
+      "type": "post-write",
+      "command": "bin/format-on-write.sh"
+    },
+    {
+      "name": "protected-file-guard",
+      "type": "pre-write",
+      "command": "bin/protected-file-guard.sh"
+    },
+    {
+      "name": "static-quality-gate",
+      "type": "post-write",
+      "command": "bin/static-quality-gate.sh"
+    },
+    {
+      "name": "placeholder-content-detector",
+      "type": "post-write",
+      "command": "bin/placeholder-content-detector.sh"
+    },
+    {
+      "name": "anti-slop-detector",
+      "type": "post-write",
+      "command": "bin/anti-slop-detector.sh"
+    },
+    {
+      "name": "rendered-evidence-gate",
+      "type": "pre-final",
+      "command": "bin/rendered-evidence-gate.sh"
+    },
+    {
+      "name": "final-acceptance-gate",
+      "type": "pre-final",
+      "command": "bin/final-acceptance-gate.sh"
+    },
+    {
+      "name": "history-snapshot",
+      "type": "post-session",
+      "command": "bin/history-snapshot.sh"
+    }
+  ]
+}
