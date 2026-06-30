@@ -1,0 +1,23 @@
+{
+  "//": "Accounts whose NEW posts should be auto-liked by your logged-in session.",
+  "//username": "Use the exact Instagram handle WITHOUT the @, e.g. for instagram.com/deltafitgta the username is 'deltafitgta'.",
+  "targets": [
+    {
+      "label": "Delta Fit GTA",
+      "username": "delta_fit_gta",
+      "enabled": true
+    }
+  ],
+
+  "//checkLatestPosts": "How many of the most recent grid posts to inspect each run. New posts beyond this in a single run would be missed, so keep your schedule frequent enough.",
+  "checkLatestPosts": 4,
+
+  "//headless": "true = no visible window (good for servers/cron). false = watch it work.",
+  "headless": true,
+
+  "//dryRun": "true = find posts and report what WOULD be liked, but never click Like. Override per-run with --dry-run.",
+  "dryRun": false,
+
+  "//humanDelayMs": "Random pause range (ms) between actions to look less robotic and stay gentle on the account.",
+  "humanDelayMs": { "min": 1800, "max": 5200 }
+}

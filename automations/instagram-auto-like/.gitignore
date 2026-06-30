@@ -1,0 +1,5 @@
+# Never commit your Instagram session or runtime data.
+auth.json
+state.json
+logs/
+node_modules/

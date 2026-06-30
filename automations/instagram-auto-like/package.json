@@ -1,0 +1,15 @@
+{
+  "name": "instagram-auto-like",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Auto-like new Instagram posts from watched accounts using your own logged-in session.",
+  "type": "module",
+  "scripts": {
+    "login": "node login.js",
+    "run": "node like.js",
+    "dry-run": "node like.js --dry-run"
+  },
+  "dependencies": {
+    "playwright": "^1.49.0"
+  }
+}

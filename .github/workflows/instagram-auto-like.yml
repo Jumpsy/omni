@@ -1,0 +1,61 @@
+name: Instagram Auto-Like
+
+# Runs on a schedule and likes any NEW posts from the watched account(s).
+# NOTE: GitHub only runs scheduled workflows from the repository's DEFAULT branch
+# (usually `main`). This file must be on the default branch for the cron to fire.
+# You can always run it by hand from the Actions tab (workflow_dispatch).
+
+on:
+  schedule:
+    # Every 30 minutes. GitHub may delay scheduled runs under load — that's fine.
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}
+
+# Never run two copies at once (avoids racing on the cached session).
+concurrency:
+  group: instagram-auto-like
+  cancel-in-progress: false
+
+jobs:
+  auto-like:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: automations/instagram-auto-like
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Persist the logged-in session + the record of already-liked posts
+      # between runs. A fresh key each run + prefix restore-keys keeps the
+      # newest cache (immutable keys would never refresh an expired session).
+      - name: Restore session + state cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            automations/instagram-auto-like/auth.json
+            automations/instagram-auto-like/state.json
+          key: ig-auto-like-${{ github.run_id }}
+          restore-keys: |
+            ig-auto-like-
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run auto-like
+        env:
+          # Provide ONE of these via repo Settings → Secrets and variables → Actions.
+          # Recommended (most reliable): IG_SESSIONID — your instagram.com `sessionid` cookie.
+          IG_SESSIONID: ${{ secrets.IG_SESSIONID }}
+          IG_AUTH_STATE_B64: ${{ secrets.IG_AUTH_STATE_B64 }}
+          # Fallback (often blocked from GitHub IPs):
+          IG_USERNAME: ${{ secrets.IG_USERNAME }}
+          IG_PASSWORD: ${{ secrets.IG_PASSWORD }}
+        run: node like.js
